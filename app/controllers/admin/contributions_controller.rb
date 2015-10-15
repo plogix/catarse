@@ -20,7 +20,11 @@ class Admin::ContributionsController < Admin::BaseController
 
   def gateway_refund
     resource.direct_refund
-    redirect_to admin_contributions_path(params[:local_params])
+    if request.xhr?
+      return render json: []
+    else
+      redirect_to admin_contributions_path(params[:local_params])
+    end
   end
 
   def update
